@@ -1,4 +1,4 @@
-#A working wordcount from with oozie wrappers
+#A working wordcount with oozie wrappers
 
 ##Sample Dataset: MusixMatch (~13.5mb)
 http://labrosa.ee.columbia.edu/millionsong/sites/default/files/AdditionalFiles/mxm_dataset_test.txt.zip
