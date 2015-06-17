@@ -8,17 +8,21 @@ http://labrosa.ee.columbia.edu/millionsong/musixmatch
 
 ##Instructions For Standalone MR Usage:
 
-1) Make directory for user if not already exists
-hdfs dfs -mkdir /user/$USERNAME
+######1) Make directory for user if not already exists
 
-2) Make raw data folder for musixmatch dataset
-hdfs dfs -mkdir rawmusixmatch
+> hdfs dfs -mkdir /user/$USERNAME
 
-3) Upload raw dataset to HDFS
-hdfs dfs -put mxm_dataset_test.txt rawmusixmatch/
+######2) Make raw data folder for musixmatch dataset
 
-4) Execute MR Job
-yarn jar hdp2wordcount-0.0.1-SNAPSHOT.jar hdp2wordcount.WordCount rawmusixmatch $OUTPUTDIR
+> hdfs dfs -mkdir rawmusixmatch
+
+######3) Upload raw dataset to HDFS
+
+> hdfs dfs -put mxm_dataset_test.txt rawmusixmatch/
+
+######4) Execute MR Job
+
+> yarn jar hdp2wordcount-0.0.1-SNAPSHOT.jar hdp2wordcount.WordCount rawmusixmatch $OUTPUTDIR
 
 
 
@@ -26,16 +30,21 @@ yarn jar hdp2wordcount-0.0.1-SNAPSHOT.jar hdp2wordcount.WordCount rawmusixmatch 
 ##Instructions For Oozie  Usage:
 
 1) Make directory for user if not already exists
+
 hdfs dfs -mkdir /user/$USERNAME
 
 2) Make raw data folder for musixmatch dataset
+
 hdfs dfs -mkdir rawmusixmatch
 
 3) Upload raw dataset to HDFS
+
 hdfs dfs -put mxm_dataset_test.txt rawmusixmatch/
 
 4) Upload ooziewc folder to HDFS
+
 hdfs dfs -put ooziewc/ .
 
 5) Execute the Oozie Workflow!
 
+oozie job -oozie http://sandbox.hortonworks.com:11000/oozie -config job.properties  -run
