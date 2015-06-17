@@ -1,4 +1,4 @@
-package hadoopwordcount;
+package hdp2wordcount;
 import java.io.IOException;
 import java.util.StringTokenizer;
 
@@ -22,7 +22,7 @@ public class WordCount {
 
     public void map(Object key, Text value, Context context
                     ) throws IOException, InterruptedException {
-      StringTokenizer itr = new StringTokenizer(value.toString());
+      StringTokenizer itr = new StringTokenizer(value.toString(), ",");
       while (itr.hasMoreTokens()) {
         word.set(itr.nextToken());
         context.write(word, one);
