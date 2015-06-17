@@ -1,12 +1,12 @@
-A working wordcount from HDP2 Repos
+#A working wordcount from HDP2 Repos
 
-Sample Dataset: MusixMatch (~13.5mb)
+##Sample Dataset: MusixMatch (~13.5mb)
 http://labrosa.ee.columbia.edu/millionsong/sites/default/files/AdditionalFiles/mxm_dataset_test.txt.zip
 http://labrosa.ee.columbia.edu/millionsong/musixmatch
 
 
 
-Instructions For Standalone MR Usage:
+##Instructions For Standalone MR Usage:
 
 1) Make directory for user if not already exists
 hdfs dfs -mkdir /user/$USERNAME
@@ -23,7 +23,7 @@ yarn jar hdp2wordcount-0.0.1-SNAPSHOT.jar hdp2wordcount.WordCount rawmusixmatch 
 
 
 
-Instructions For Oozie  Usage:
+##Instructions For Oozie  Usage:
 
 1) Make directory for user if not already exists
 hdfs dfs -mkdir /user/$USERNAME
