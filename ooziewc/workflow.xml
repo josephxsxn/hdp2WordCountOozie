@@ -32,7 +32,8 @@
     			<name>mapreduce.job.inputformat.class</name>
     			<value>org.apache.hadoop.mapreduce.lib.input.TextInputFormat</value>
 		</property>
-              <property>
+              
+		<property>
                     <name>mapreduce.job.reduces</name>
                     <value>${reduces}</value>
                 </property>
@@ -47,6 +48,14 @@
                 <property>
                     <name>mapreduce.job.map.class</name>
                     <value>hdp2wordcount.WordCount$TokenizerMapper</value>
+                </property>
+                <property>
+                    <name>mapreduce.map.output.key.class</name>
+                    <value>org.apache.hadoop.io.Text</value>
+                </property>
+                <property>
+                    <name>mapreduce.map.output.value.class</name>
+                    <value>org.apache.hadoop.io.IntWritable</value>
                 </property>
                 <property>
                     <name>mapreduce.job.reduce.class</name>
