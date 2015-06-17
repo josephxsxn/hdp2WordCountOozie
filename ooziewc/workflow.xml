@@ -1,0 +1,76 @@
+<workflow-app name='wordcount-wf' xmlns="uri:oozie:workflow:0.2">
+    <start to='wordcount'/>
+    <action name='wordcount'>
+        <map-reduce>
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <prepare>
+		 <delete path="${outputDir}"/>
+            </prepare>
+            <configuration>
+		<property>
+               		<name>mapred.mapper.new-api</name>
+               		<value>true</value>
+            	</property>
+            	<property>
+               		<name>mapred.reducer.new-api</name>
+               		<value>true</value>
+            	</property>                
+		<property>
+                    <name>mapreduce.job.queuename</name>
+                    <value>${queueName}</value>
+                </property>
+                <property>
+                    <name>mapreduce.input.fileinputformat.split.minsize</name>
+                    <value>${minSplit}</value>
+                </property>
+                <property>
+                    <name>mapreduce.input.fileinputformat.split.maxsize</name>
+                    <value>${maxSplit}</value>
+                </property>
+		<property>
+    			<name>mapreduce.job.inputformat.class</name>
+    			<value>org.apache.hadoop.mapreduce.lib.input.TextInputFormat</value>
+		</property>
+              <property>
+                    <name>mapreduce.job.reduces</name>
+                    <value>${reduces}</value>
+                </property>
+                <property>
+                    <name>mapreduce.map.output.compress</name>
+                    <value>true</value>
+                </property>
+		<property>
+                    <name>mapreduce.map.output.compress.codec</name>
+                    <value>org.apache.hadoop.io.compress.Lz4Codec</value>
+                </property>
+                <property>
+                    <name>mapreduce.job.map.class</name>
+                    <value>hdp2wordcount.WordCount$TokenizerMapper</value>
+                </property>
+                <property>
+                    <name>mapreduce.job.reduce.class</name>
+                    <value>hdp2wordcount.WordCount$IntSumReducer</value>
+                </property>
+                <property>
+                    <name>mapreduce.job.combine.class</name>
+                    <value>hdp2wordcount.WordCount$IntSumReducer</value>
+                </property>
+                <property>
+                    <name>mapreduce.input.fileinputformat.inputdir</name>
+                    <value>${inputDir}</value>
+                </property>
+                <property>
+                    <name>mapreduce.output.fileoutputformat.outputdir</name>
+                    <value>${outputDir}</value>
+                </property>
+            </configuration>
+        </map-reduce>
+        <ok to='end'/>
+        <error to='end'/>
+    </action>
+    <kill name='kill'>
+        <message>${wf:errorCode("wordcount")}</message>
+    </kill>
+    <end name='end'/>
+</workflow-app>
