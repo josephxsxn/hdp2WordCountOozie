@@ -44,7 +44,8 @@ public class WordCount {
 		private final static IntWritable one = new IntWritable(1);
 		private Text word = new Text();
 		private boolean usingKeywordFile = true;
-		private List<String> keywords = null;
+		private List<String> keywords;
+		private List<String> matchingWords;
 
 		TokenizerMapper(){
 			//Read from the YARN Local Cache.  
@@ -63,7 +64,7 @@ public class WordCount {
 			//Check if using KeyWord File or not.
 			//If using it, then filter only on keywords
 			if(usingKeywordFile){
-				List<String> matchingWords = new ArrayList<String>(Arrays.asList(value.toString().split(",")));
+				matchingWords = new ArrayList<String>(Arrays.asList(value.toString().split(",")));
 				matchingWords.retainAll(keywords);
 				Iterator<String> itr = matchingWords.iterator();
 				
