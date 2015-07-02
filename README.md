@@ -55,9 +55,9 @@ http://labrosa.ee.columbia.edu/millionsong/musixmatch
 > oozie job -oozie http://sandbox.hortonworks.com:11000/oozie -config job.properties  -run
 
 
-#Running with keyword file out of the YARN Distributed Cache
+#Filtering with keywords.txt file from YARN Distributed Cache
 
-Note - The distributed cache assumes the file is named **keywords.txt**  if it is not the job will default to normal Word Count behavior and not perform filtering. 
+***Note*** - The distributed cache assumes the file is named **keywords.txt**  if it is not the job will default to normal Word Count behavior and not perform filtering. 
 
 ##Running as StandAlone MR with Keyword Filtering
 
