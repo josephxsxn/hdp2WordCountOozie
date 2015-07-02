@@ -74,6 +74,7 @@
                     <value>${outputDir}</value>
                 </property>
             </configuration>
+	    <file>${keywords}</file>
         </map-reduce>
         <ok to='end'/>
         <error to='end'/>

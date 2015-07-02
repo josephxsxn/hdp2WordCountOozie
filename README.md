@@ -50,9 +50,11 @@ http://labrosa.ee.columbia.edu/millionsong/musixmatch
 
 > hdfs dfs -put ooziewc/ .
 
-######5) Delete the keywords.txt from ooziewc/lib
+######5) Delete <files> line from workflow.xml
 
-> hdfs dfs -rm ooziewc/lib/keywords.txt
+> in workflow.xml delete the following line found after the </configuration> line:
+> ***<file>${keywords}</file>***
+
 
 ######6) Execute the Oozie Workflow!
 
@@ -82,4 +84,4 @@ http://labrosa.ee.columbia.edu/millionsong/musixmatch
 
 ##Running as Oozie with Keyword Filtering
 
-######1) Perform steps for Normal Oozie Word Count Usage above skipping step #5 
+######1) Perform steps for Normal Oozie Word Count Usage above skipping step #5 if step 5 has been performed just re-add the line removed in step #5. 
