@@ -5,6 +5,7 @@ http://labrosa.ee.columbia.edu/millionsong/sites/default/files/AdditionalFiles/m
 http://labrosa.ee.columbia.edu/millionsong/musixmatch
 
 
+#Running as Normal Word Count
 
 ##Instructions For Standalone MR Usage:
 
@@ -45,6 +46,32 @@ http://labrosa.ee.columbia.edu/millionsong/musixmatch
 
 > hdfs dfs -put ooziewc/ .
 
-######5) Execute the Oozie Workflow!
+######5) Delete the keywords.txt from ooziewc/lib
+
+> hdfs dfs -rm ooziewc/lib/keywords.txt
+
+######6) Execute the Oozie Workflow!
 
 > oozie job -oozie http://sandbox.hortonworks.com:11000/oozie -config job.properties  -run
+
+
+#Running with keyword file out of the YARN Distributed Cache
+
+Note - The distributed cache assumes the file is named **keywords.txt**  if it is not the job will default to normal Word Count behavior and not perform filtering. 
+
+##Running as StandAlone MR with Keyword Filtering
+
+######1) Upload keywords.txt file to HDFS
+
+> hdfs dfs -put keywords.txt /user/$USERNAME/keywords.txt
+
+######2) Follow Steps 1-3 above of the Normal Word Count Standalone MR Usage. 
+
+######3) Execute MR Job
+
+> yarn jar hdp2wordcount-0.0.1-SNAPSHOT.jar hdp2wordcount.WordCount rawmusixmatch $OUTPUTDIR keywords.txt
+
+
+##Running as Oozie with Keyword Filtering
+
+######1) Perform steps for Normal Oozie Word Count Usage above skipping step #5 
