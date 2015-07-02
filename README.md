@@ -61,7 +61,7 @@ http://labrosa.ee.columbia.edu/millionsong/musixmatch
 
 #Filtering with keywords file from YARN Distributed Cache
 
-***Note - *** Any file can be provided for filtering but the assumptions are:
+***Note*** - Any file can be provided for filtering but the assumptions are:
 
 1. All Keywords are Comma ‘,’ delimited 
 2. All Keywords are on a single line in the keyword file
