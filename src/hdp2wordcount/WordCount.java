@@ -50,7 +50,7 @@ public class WordCount {
 		TokenizerMapper(){
 			//Read from the YARN Local Cache.  
 			//This is also the same way to read from the cache if you add via the job launcher.
-			try (BufferedReader br = new BufferedReader(new FileReader("./keywords.txt"))) {
+			try (BufferedReader br = new BufferedReader(new FileReader("./keywords"))) { //read symlinked file
 			    keywords = new ArrayList<String>(Arrays.asList(br.readLine().split(",")));
 			} catch (FileNotFoundException e) {
 				usingKeywordFile=false;
@@ -99,7 +99,7 @@ public class WordCount {
 		//If being ran as a normal MR job see if someone is passing a keywords list
 		//Total lack of validation around the file name, we expect it to be keywords.txt
 		if(args.length==3)
-			job.addCacheFile(new URI(args[2]));
+			job.addCacheFile(new URI(args[2]+"#keywords")); //symlink the file so we don't care what its named on HDFS
 		
 		System.exit(job.waitForCompletion(true) ? 0 : 1);
 	}

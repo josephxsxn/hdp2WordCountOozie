@@ -59,21 +59,25 @@ http://labrosa.ee.columbia.edu/millionsong/musixmatch
 > oozie job -oozie http://sandbox.hortonworks.com:11000/oozie -config job.properties  -run
 
 
-#Filtering with keywords.txt file from YARN Distributed Cache
+#Filtering with keywords file from YARN Distributed Cache
 
-***Note*** - The distributed cache assumes the file is named **keywords.txt**  if it is not the job will default to normal Word Count behavior and not perform filtering. 
+***Note - *** Any file can be provided for filtering but the assumptions are:
+
+1. All Keywords are Comma ‘,’ delimited 
+2. All Keywords are on a single line in the keyword file
+
 
 ##Running as StandAlone MR with Keyword Filtering
 
 ######1) Upload keywords.txt file to HDFS
 
-> hdfs dfs -put keywords.txt /user/$USERNAME/keywords.txt
+> hdfs dfs -put keywords.txt /user/$USERNAME/$SOMEFILE
 
 ######2) Follow Steps 1-3 above of the Normal Word Count Standalone MR Usage. 
 
 ######3) Execute MR Job
 
-> yarn jar hdp2wordcount-0.0.1-SNAPSHOT.jar hdp2wordcount.WordCount rawmusixmatch $OUTPUTDIR keywords.txt
+> yarn jar hdp2wordcount-0.0.1-SNAPSHOT.jar hdp2wordcount.WordCount rawmusixmatch $OUTPUTDIR $SOMEFILE
 
 
 ##Running as Oozie with Keyword Filtering
