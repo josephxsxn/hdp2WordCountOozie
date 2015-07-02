@@ -1,4 +1,4 @@
-#A working wordcount with oozie wrappers
+#A working wordcount with oozie workflow
 
 A working example showing how to perform Word Count, Word Count with keyword filtering using the YARN Distributed Cache, and orchestration as an Oozie Workflow. 
 
