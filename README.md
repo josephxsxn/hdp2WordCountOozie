@@ -52,7 +52,8 @@ http://labrosa.ee.columbia.edu/millionsong/musixmatch
 
 ######5) Delete <files> line from workflow.xml
 
-> in workflow.xml delete the following line found after the </configuration> line:
+> in workflow.xml delete the following line found after the `</configuration>` line:
+
 > `<file>${keywords}</file>`
 
 
