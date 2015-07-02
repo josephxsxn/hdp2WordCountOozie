@@ -1,5 +1,9 @@
 #A working wordcount with oozie wrappers
 
+A working example showing how to perform Word Count, Word Count with keyword filtering using the YARN Distributed Cache, and orchestration as an Oozie Workflow. 
+
+
+
 ##Sample Dataset: MusixMatch (~13.5mb)
 http://labrosa.ee.columbia.edu/millionsong/sites/default/files/AdditionalFiles/mxm_dataset_test.txt.zip
 http://labrosa.ee.columbia.edu/millionsong/musixmatch
