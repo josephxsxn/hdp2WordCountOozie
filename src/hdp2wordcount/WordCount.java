@@ -97,7 +97,6 @@ public class WordCount {
 		TextOutputFormat.setOutputPath(job, new Path(args[1]));
 		
 		//If being ran as a normal MR job see if someone is passing a keywords list
-		//Total lack of validation around the file name, we expect it to be keywords.txt
 		if(args.length==3)
 			job.addCacheFile(new URI(args[2]+"#keywords")); //symlink the file so we don't care what its named on HDFS
 		
