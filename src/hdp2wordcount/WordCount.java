@@ -1,6 +1,14 @@
 package hdp2wordcount;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import org.apache.hadoop.conf.Configuration;
@@ -35,13 +43,41 @@ public class WordCount {
 
 		private final static IntWritable one = new IntWritable(1);
 		private Text word = new Text();
+		private boolean usingKeywordFile = true;
+		private List<String> keywords = null;
 
+		TokenizerMapper(){
+			//Read from the YARN Local Cache.  
+			//This is also the same way to read from the cache if you add via the job launcher.
+			try (BufferedReader br = new BufferedReader(new FileReader("./keywords.txt"))) {
+			    keywords = new ArrayList<String>(Arrays.asList(br.readLine().split(",")));
+			} catch (FileNotFoundException e) {
+				usingKeywordFile=false;
+			} catch (IOException e) {
+				usingKeywordFile=false;
+			}
+		}
+		
 		public void map(Object key, Text value, Context context)
-				throws IOException, InterruptedException {
-			StringTokenizer itr = new StringTokenizer(value.toString(), ",");
-			while (itr.hasMoreTokens()) {
-				word.set(itr.nextToken());
-				context.write(word, one);
+				throws IOException, InterruptedException {			
+			//Check if using KeyWord File or not.
+			//If using it, then filter only on keywords
+			if(usingKeywordFile){
+				List<String> matchingWords = new ArrayList<String>(Arrays.asList(value.toString().split(",")));
+				matchingWords.retainAll(keywords);
+				Iterator<String> itr = matchingWords.iterator();
+				
+				while (itr.hasNext()) {
+					word.set(itr.next());
+					context.write(word, one);
+				}
+			}
+			else{ //If not using keyword file just do a basic wordcount
+				StringTokenizer itr = new StringTokenizer(value.toString(), ",");
+				while (itr.hasMoreTokens()) {
+					word.set(itr.nextToken());
+					context.write(word, one);
+				}
 			}
 		}
 	}
@@ -55,8 +91,15 @@ public class WordCount {
 		job.setReducerClass(IntSumReducer.class);
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(IntWritable.class);
+	
 		TextInputFormat.addInputPath(job, new Path(args[0]));
 		TextOutputFormat.setOutputPath(job, new Path(args[1]));
+		
+		//If being ran as a normal MR job see if someone is passing a keywords list
+		//Total lack of validation around the file name, we expect it to be keywords.txt
+		if(args.length==3)
+			job.addCacheFile(new URI(args[2]));
+		
 		System.exit(job.waitForCompletion(true) ? 0 : 1);
 	}
 }
